@@ -1,0 +1,9 @@
+- Check if database already exists (and if table is consistent).
+
+- Return a true value when database entry is correctly saved. 
+
+- Get the database name as script argument.
+
+- Return a true value when Reference instance is correctly created.
+
+- make SQLiteManager check if the given Reference instance has all the required parameters.
