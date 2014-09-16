@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+    function addAuthor(){
+        var newAuthor;
+        if (document.getElementById("authorInput").value == "")
+            alert("Please, write the name of an author");
+        else {
+            try {
+                var select = document.getElementById("addedAuthors")
+                newAuthor = document.createElement("option");
+                newAuthor.text = document.getElementById("authorInput").value
+                newAuthor.selected = true
+                select.add(newAuthor)
+            } catch (error) {
+                alert(error)
+            }
+        }
+    }
+</script>
+<!-- Check code in http://www.w3schools.com/tags/tryit.asp?filename=tryhtml_form_method_post-->
+<!-- property target="_black" just for testing-->
+<form  action="demo_form_method_post.asp" method="get"  target="_blank">
+    Title: <input type="text" name="title"><br>
+    Year: <input type="number" name="year" min=1900 max =2100><br>
+    Add new author: <input id="authorInput">
+    <button type='button' onclick="addAuthor()">add</button><br>
+    <select name="addedAuthors" id="addedAuthors" size=6  multiple="multiple"  style="width: 300px"></select ><br>
+    <input type="submit" value="Submit">
+</form>
+</body>
