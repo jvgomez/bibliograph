@@ -4,7 +4,8 @@ import sqlite3
 class SQLiteManager:
 
     def __init__(self, db_name = 'default.db'):
-        os.remove(db_name)
+        if os.path.isfile(db_name):
+            os.remove(db_name)
         self.conn = sqlite3.connect(db_name)
         self.c = self.conn.cursor()
 

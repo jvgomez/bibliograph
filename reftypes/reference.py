@@ -10,6 +10,24 @@ class Reference:
         self.ref_type = int(raw_input('Type of article (1 journal, 2 conf, 3 book, 4 other): '))
         ref_types[self.ref_type]()
 
+    # Overloaded constructor for specific type (now default).
+    # TODO: add type checking and error handling (and so).
+    def __init__(self, authors, title, year, et_al = False, ref_type = 4):
+        self.ref_type = ref_type
+        self.n_authors = len(authors)
+        if self.n_authors > 4:
+            self.et_al = True
+            self.authors = authors[:4]
+        else:
+            self.et_al = False
+            self.authors = authors
+            for i in xrange(self.n_authors,4):
+                self.authors.append('none')
+        self.authors = authors
+        self.title = title
+        self.year = year
+
+
     def create_journal(self):
         self.create_default()
 

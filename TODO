@@ -8,4 +8,6 @@
 
 - make SQLiteManager check if the given Reference instance has all the required parameters.
 
+- [ALTERNATIVE] substitute SQLiteManager for a SQLObject-derived class or something similar.
+
 - make form in HTML
