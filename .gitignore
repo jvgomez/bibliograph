@@ -1,5 +1,9 @@
 # Temp files
-*.*~
+*~
+
+# App-created files
+*.json
+*.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

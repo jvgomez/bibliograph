@@ -7,12 +7,14 @@ class Reference:
                       4 : self.create_default
                     }
 
+        self.id = raw_input('ID: ')
         self.ref_type = int(raw_input('Type of article (1 journal, 2 conf, 3 book, 4 other): '))
         ref_types[self.ref_type]()
 
     # Overloaded constructor for specific type (now default).
     # TODO: add type checking and error handling (and so).
-    def __init__(self, authors, title, year, et_al = False, ref_type = 4):
+    def __init__(self, id_ref, authors, title, year, et_al = False, ref_type = 4):
+        self.id = id_ref
         self.ref_type = ref_type
         self.n_authors = len(authors)
         if self.n_authors > 4:

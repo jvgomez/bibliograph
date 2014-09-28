@@ -1,4 +1,6 @@
-- Check if database already exists (and if table is consistent).
+- test if the current entry already exists (title+year?)
+
+- test that current given id does not exist.
 
 - Return a true value when database entry is correctly saved. 
 
