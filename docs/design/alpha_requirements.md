@@ -7,3 +7,7 @@ This document contains the minimum requirements for the alpha version (a mock up
 3.	A graph is shown: vertices are current references and edges their connections.
 	1.	It is a directed graph.
 	1.	It would be nice to have an interactive graph (colapse, expand, zoom, move, etc).
+
+### Additional requirements
+1. In order to be standard, we must use general bib formats.
+	1. Bibtex: https://bibtexparser.readthedocs.org/en/latest/index.html
