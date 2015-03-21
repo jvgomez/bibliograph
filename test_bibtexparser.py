@@ -135,3 +135,6 @@ with open(json_file, 'w') as jsonfile:
 
 # open URL in running web browser
 load_url('data/force.html')
+
+# TODO improve D3 plotting.
+# TODO create edges from GUI or from plot: http://bl.ocks.org/cjrd/6863459 - http://bl.ocks.org/rkirsling/5001347
