@@ -6,6 +6,7 @@ __author__ = 'Javier V Gomez'
 from pprint import pprint
 import sys
 import os
+
 btp_path = os.path.join('.', 'python-bibtexparser')  # Creates platform-independent BibTexParser (BTP) path.
 sys.path.append(btp_path)  # Appends BTP to system path, so that next import works.
 import bibtexparser
@@ -15,11 +16,12 @@ import networkx as nx
 
 import re
 from colorama import *
+
 init(autoreset=True)
 import logging
 import logging.config
 
-# logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 # logging.config.dictConfig({
 #     'version': 1,
 #     'disable_existing_loggers': False,
@@ -81,21 +83,55 @@ with open('data/bibtex.bib', 'r') as bibfile:
 bib_dict = bib_database.get_entry_dict()
 
 # Creating nodes
-G = nx.Graph()
+G = nx.DiGraph()  # Directed graph_ children -> parent
 for entry in bib_database.get_entry_list():
     if entry['ID'] in G:
-        print(Fore.YELLOW + Style.BRIGHT + "[Warning] - Entry with ID \"{0}\" already exists.".format(entry['ID']))
+        print(Fore.YELLOW + Style.BRIGHT +
+              "[Warning] - Entry with ID \"{0}\" already exists. Ignored."
+              .format(entry['ID']))
     else:
         G.add_node(entry['ID'], entry)
 
-# Creating edges
-for ID in G.nodes():
+# Creating edges between ID and relations IDs.
+# Edges are in 'upward' direction, that is, children point to their parent.
+for ID in G.nodes():  # For each node with relations field...
     if 'relations' in G.node[ID]:
-        print G.node[ID]['relations']
+        for rel in G.node[ID]['relations']:  # ... for each relation...
+            if rel in G:  # ... look for and link to the corresponding parent
+                logger.debug("{0} linked to {1}".format(G.node[ID]['ID'], rel))
+                G.add_edge(G.node[ID]['ID'], rel)
+            else:  # NetworkX can create automatically the nonexistent node, but we do not
+                # want that, since it would be empty, only with name.
+                print(Fore.YELLOW + Style.BRIGHT +
+                      "[Warning] - Entry \"{0}\" links to nonexistent entry \"{1}\". Ignored"
+                      .format(G.node[ID]['ID'], rel))
 
-# import matplotlib.pyplot as plt
-# nx.draw(G)
-# plt.show()
-# #plt.savefig("graph.png")
+# Plotting
+# TODO in the future it might be better to use Graphviz (better plotting options)
 
-# TODO test javascript support
+import matplotlib.pyplot as plt
+
+pos = nx.spring_layout(G)
+fig = plt.figure(facecolor='white')
+nx.draw_networkx_nodes(G, pos)
+nx.draw_networkx_edges(G, pos)
+nx.draw_networkx_labels(G, pos)
+plt.axis('off')
+plt.show()
+# plt.savefig("graph.png")
+
+
+# Plotting using D3 and force template.
+import json
+from networkx.readwrite import json_graph
+from server.StopableHTTPServer import load_url
+
+# Create and save json
+json_file = 'data/graph.json'
+d = json_graph.node_link_data(G)  # node-link format to serialize
+with open(json_file, 'w') as jsonfile:
+    json.dump(d, jsonfile)
+    logger.debug('Wrote node-link JSON data to {0}'.format(json_file))
+
+# open URL in running web browser
+load_url('data/force.html')
