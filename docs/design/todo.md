@@ -1,18 +1,18 @@
 Design-related TODO list:
 
-1. Check out [bibserver](https://github.com/okfn/bibserver) since it can be useful.
+1. Check out [bibserver](https://github.com/okfn/bibserver) since it can be useful. Check out http://holtzermann17.github.io/skelodml/bibserver-setup.html and https://github.com/okfn/bibserver/issues/256 when installing.
 2. Make a decision about initial program design.
 3. Make a decision about initial technologies to use.
-  3.1 Graph drawing with python:
+4. Check out other applications such as:
+  - https://github.com/jasonzou/MyPapers
 
-  - Binding for js: http://pyjs.org/ (in case 3D.js is used)
+#### Graph creation
+- [NetworkX](https://networkx.github.io/): static plotting, currently in use. Can _export_ to use in D3.js. [Example](https://www.udacity.com/wiki/creating-network-graphs-with-python#creating-network-graphs-with-python)
+- [Graph-tool](https://graph-tool.skewed.de/) (alternative to NetworkX): seems much powerful and fast (Boost-based).  Supports Graphviz.
 
-  - Easy graphs (I think no interaction): https://networkx.github.io/
-  Example: https://www.udacity.com/wiki/creating-network-graphs-with-python#creating-network-graphs-with-python
-
-  - 3D.js style but in python: http://bokeh.pydata.org/en/latest/
-
-  - Graph analysis oriented: https://graph-tool.skewed.de/
-
-  - quite complicated: http://www.graphviz.org/Documentation.php
-
+#### Graph plotting
+- [NetworkX](https://networkx.github.io/): simple and easy static plotting. Can _export_ to use in D3.js.
+- [Graphviz](http://www.graphviz.org/Documentation.php) Provides proweful static visualization.
+- [Bokeh](http://bokeh.pydata.org/en/latest/) General purpose python plotting (static I think), D3.js-like.
+- D3.js, interactive.
+	- Binding for JS: http://pyjs.org/ (in case 3D.js is used perhaps we can use this)
